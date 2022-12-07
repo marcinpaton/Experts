@@ -1,6 +1,7 @@
 # Prerequisites
 *.ex4
 *.dat
+*.log
 
 ### IntelliJ IDEA ###
 .idea
