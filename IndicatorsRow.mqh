@@ -24,6 +24,7 @@ class IndicatorsRow {
       void setMA(int shift);
       void setOsma(int shift);
       void setSar(int shift);
+      void setRsi(int shift);
    public:
       IndicatorsRow();
      ~IndicatorsRow();
@@ -49,6 +50,7 @@ class IndicatorsRow {
       double ma;
       double osma;
       double sar;
+      double rsi;
   };
   
 IndicatorsRow::IndicatorsRow(){
@@ -78,6 +80,18 @@ void IndicatorsRow::load(int shift) {
       setMA(shift);
       setOsma(shift);
       setSar(shift);
+      setRsi(shift);
+}
+
+void IndicatorsRow::setRsi(int shift) {
+   rsi = iRSI(Symbol(), Period(), 14, PRICE_CLOSE, shift);
+   if (rsi < 30) {
+      rsi = 1;
+   } else if (rsi > 70) {
+      rsi = -1;
+   } else {
+      rsi = 0;
+   }
 }
 
 void IndicatorsRow::setSar(int shift) {
