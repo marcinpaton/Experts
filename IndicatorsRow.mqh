@@ -23,6 +23,7 @@ class IndicatorsRow {
       void setMFI(int shift);
       void setMA(int shift);
       void setOsma(int shift);
+      void setSar(int shift);
    public:
       IndicatorsRow();
      ~IndicatorsRow();
@@ -47,6 +48,7 @@ class IndicatorsRow {
       double mfi;
       double ma;
       double osma;
+      double sar;
   };
   
 IndicatorsRow::IndicatorsRow(){
@@ -75,6 +77,15 @@ void IndicatorsRow::load(int shift) {
       setMFI(shift);
       setMA(shift);
       setOsma(shift);
+      setSar(shift);
+}
+
+void IndicatorsRow::setSar(int shift) {
+   if (iSAR(Symbol(), Period(), 0.02, 0.2, shift) > iClose(Symbol(), Period(), shift)) {
+      sar = 1;
+   } else {
+      sar = -1;
+   }
 }
 
 void IndicatorsRow::setOsma(int shift) {
