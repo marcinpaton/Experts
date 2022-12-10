@@ -27,7 +27,7 @@ void openFile() {
    string headers = StringConcatenate(
                      "Time;Open;High;Low;Close;AC;ADX;Alligator;AO;ATR;BullsBears;BandUpper;",
                      "BandLower;CCI;DeMarker;Envelopes;Force;Fractals;Gator;Ichimoku;Momentum;",
-                     "MFI;MA;OsMA;SAR;RSI\n");
+                     "MFI;MA;OsMA;SAR;RSI;RVI;Stochastic\n");
    Print(headers);
    
    string fileName = StringConcatenate(Symbol(), "_M", Period(), "_prices.csv");
@@ -87,6 +87,8 @@ void OnTick() {
                      DoubleToString(indicatorsRow.osma, 8), ";",
                      DoubleToString(indicatorsRow.sar, 0), ";",
                      DoubleToString(indicatorsRow.rsi, 0), ";",
+                     DoubleToString(indicatorsRow.rvi, 4), ";",
+                     DoubleToString(indicatorsRow.sto, 0), ";",
                      "\n");
    Print(pricesRow);
    openFile();

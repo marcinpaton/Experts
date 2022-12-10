@@ -25,6 +25,8 @@ class IndicatorsRow {
       void setOsma(int shift);
       void setSar(int shift);
       void setRsi(int shift);
+      void setRvi(int shift);
+      void setSto(int shift);
    public:
       IndicatorsRow();
      ~IndicatorsRow();
@@ -51,6 +53,8 @@ class IndicatorsRow {
       double osma;
       double sar;
       double rsi;
+      double rvi;
+      double sto;
   };
   
 IndicatorsRow::IndicatorsRow(){
@@ -81,6 +85,24 @@ void IndicatorsRow::load(int shift) {
       setOsma(shift);
       setSar(shift);
       setRsi(shift);
+      setRvi(shift);
+      setSto(shift);
+}
+
+void IndicatorsRow::setSto(int shift) {
+   sto = iStochastic(Symbol(), Period(),15,8,8,MODE_EMA,0,MODE_SIGNAL,shift);
+   if (sto <= 20) {
+      sto = 1;
+   } else if (sto >= 80) {
+      sto = -1;
+   } else {
+      sto = 0;
+   }
+}
+
+void IndicatorsRow::setRvi(int shift) {
+   rvi = iRVI(Symbol(), Period(), 10, MODE_MAIN, shift) 
+          - iRVI(Symbol(), Period(), 10, MODE_SIGNAL, shift);
 }
 
 void IndicatorsRow::setRsi(int shift) {
