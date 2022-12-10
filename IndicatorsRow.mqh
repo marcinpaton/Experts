@@ -27,6 +27,7 @@ class IndicatorsRow {
       void setRsi(int shift);
       void setRvi(int shift);
       void setSto(int shift);
+      void setWpr(int shift);
    public:
       IndicatorsRow();
      ~IndicatorsRow();
@@ -55,6 +56,7 @@ class IndicatorsRow {
       double rsi;
       double rvi;
       double sto;
+      double wpr;
   };
   
 IndicatorsRow::IndicatorsRow(){
@@ -87,6 +89,18 @@ void IndicatorsRow::load(int shift) {
       setRsi(shift);
       setRvi(shift);
       setSto(shift);
+      setWpr(shift);
+}
+
+void IndicatorsRow::setWpr(int shift) {
+   sto = iWPR(Symbol(), Period(),14,shift);
+   if (sto >= -20) {
+      wpr = 1;
+   } else if (sto <= -80) {
+      wpr = -1;
+   } else {
+      wpr = 0;
+   }
 }
 
 void IndicatorsRow::setSto(int shift) {
